@@ -6,7 +6,7 @@
 /*   By: jutrera- <jutrera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 23:17:58 by jutrera-          #+#    #+#             */
-/*   Updated: 2022/11/12 17:17:03 by jutrera-         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:00:10 by jutrera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_init_i(int fd, char *str, int *pos_nl)
 
 char	*get_next_line(int fd)
 {
-	static char	*buff[1024];
+	static char	*buff[FOPEN_MAX];
 	char		*str;
 	char		*line;
 	int			pos_nl;
