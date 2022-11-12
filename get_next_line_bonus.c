@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jutrera- <jutrera-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jutrera- <jutrera-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 23:17:58 by jutrera-          #+#    #+#             */
-/*   Updated: 2022/11/10 12:54:29 by jutrera-         ###   ########.fr       */
+/*   Updated: 2022/11/12 17:17:03 by jutrera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ char	*ft_init_str(int fd, char **buff, int *pos_nl)
 {
 	char	*str;
 
-	if (fd < 0)
+	if (fd == -1 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
+	{
+		free(buff[fd]);
 		return (NULL);
+	}
 	*pos_nl = ft_findnl(buff[fd]);
 	if (*pos_nl == -1)
 		str = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
@@ -84,10 +87,10 @@ char	*get_next_line(int fd)
 	int			i;
 
 	str = ft_init_str(fd, buff, &pos_nl);
+	if (!str || pos_nl != -1)
+		buff[fd] = NULL;
 	if (!str)
 		return (NULL);
-	if (pos_nl != -1)
-		buff[fd] = NULL;
 	i = ft_init_i(fd, str, &pos_nl);
 	while (i == BUFFER_SIZE && pos_nl == -1)
 	{
